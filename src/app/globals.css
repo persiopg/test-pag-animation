@@ -1,0 +1,128 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+:root {
+  --background: #ffffff;
+  --foreground: #0A192F;
+  --muted-foreground: #6c757d;
+  --accent-color: #9D72FF;
+  --card-bg: #ffffff;
+  --card-border: #e5e7eb;
+  --section-dark-bg: #f8f9fa;
+  --section-dark-fg: #0A192F;
+  --input-bg: #ffffff;
+  --input-border: #ced4da;
+  --input-fg: #212529;
+  --bs-primary: var(--accent-color);
+  --bs-primary-rgb: 157, 114, 255;
+  --bs-body-bg: var(--background);
+  --bs-body-color: var(--foreground);
+  --bs-tertiary-bg: var(--section-dark-bg);
+  --bs-border-color: var(--card-border);
+}
+
+[data-theme='dark'] {
+  --background: #0A192F;
+  --foreground: #CCD6F6;
+  --muted-foreground: #8892B0;
+  --accent-color: #9D72FF;
+  --card-bg: #112240;
+  --card-border: #233554;
+  --section-dark-bg: #0A192F;
+  --section-dark-fg: #CCD6F6;
+  --input-bg: #112240;
+  --input-border: #233554;
+  --input-fg: #CCD6F6;
+  --bs-primary: var(--accent-color);
+  --bs-primary-rgb: 157, 114, 255;
+  --bs-body-bg: var(--background);
+  --bs-body-color: var(--foreground);
+  --bs-tertiary-bg: var(--card-bg);
+  --bs-border-color: var(--card-border);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* NOVO: Estilos para a secção Hero com vídeo */
+.hero-section {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  color: #fff; /* Garante que o texto padrão seja branco */
+}
+
+.hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Cobre toda a área sem distorcer */
+  transform: translate(-50%, -50%);
+  z-index: -2; /* Fica por trás de tudo */
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(10, 25, 47, 0.7); /* Sobreposição escura semi-transparente */
+  z-index: -1; /* Fica por cima do vídeo, mas por trás do conteúdo */
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1; /* Garante que o conteúdo fique por cima da sobreposição */
+}
+
+/* Ajuste para o subtítulo no banner */
+.hero-content .hero-subtitle {
+  color: var(--foreground) !important; /* Usa a cor de texto do tema claro/escuro */
+}
+
+/* NOVO: Estilos para a navbar dinâmica */
+.navbar-transparent {
+  background-color: transparent !important;
+  border-bottom: 1px solid transparent !important;
+  transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+.navbar-scrolled {
+  background-color: var(--bs-tertiary-bg) !important;
+  border-bottom: 1px solid var(--bs-border-color) !important;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+/* CORREÇÃO: Garante que o texto 'muted' seja legível no tema escuro */
+[data-theme='dark'] .text-muted {
+  color: var(--muted-foreground) !important;
+}
+
+.scroll-section .section-title, .scroll-section .fade-up { opacity: 0; }
+.section-dark-themed { background-color: var(--section-dark-bg); color: var(--section-dark-fg); padding-top: 5rem; padding-bottom: 5rem; }
+.section-dark-themed .section-title { color: var(--section-dark-fg); }
+.skill-card, .project-card { background-color: var(--card-bg); border: 1px solid var(--card-border); border-radius: 0.5rem; height: 100%; transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; }
+.skill-card:hover, .project-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(var(--bs-primary-rgb), 0.1); }
+.skill-card { padding: 2rem; }
+.skill-card h4 { color: var(--foreground); }
+.skill-card p { color: var(--muted-foreground); }
+.project-card { overflow: hidden; display: flex; flex-direction: column; }
+.project-card-img { width: 100%; height: 200px; object-fit: cover; }
+.project-card-body { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
+.project-card-title { color: var(--foreground); }
+.project-card-text { color: var(--muted-foreground); flex-grow: 1; }
+.project-card-tags { margin-bottom: 1rem; }
+#contato .form-label { color: var(--section-dark-fg); }
+#contato .form-control { background-color: var(--input-bg); border-color: var(--input-border); color: var(--input-fg); }
+#contato .form-control:focus { background-color: var(--input-bg); color: var(--input-fg); border-color: var(--accent-color); box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25); }
+.btn-outline-secondary { color: var(--accent-color); border-color: var(--accent-color); }
+.btn-outline-secondary:hover { color: #fff; background-color: var(--accent-color); border-color: var(--accent-color); }
+
