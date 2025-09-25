@@ -45,6 +45,58 @@ body {
   color: var(--foreground);
 }
 
+/* Global modern enhancements */
+html { scroll-behavior: smooth; }
+::selection { background: var(--accent-color); color: #fff; }
+
+/* Glass / modern nav refinement */
+.navbar-transparent {
+  backdrop-filter: blur(8px) saturate(160%);
+  background: linear-gradient(120deg, rgba(255,255,255,0.25), rgba(255,255,255,0.05)) !important;
+  border: 1px solid rgba(255,255,255,0.2) !important;
+}
+[data-theme='dark'] .navbar-transparent {
+  background: linear-gradient(120deg, rgba(17,34,64,0.55), rgba(17,34,64,0.2)) !important;
+  border-color: rgba(255,255,255,0.08) !important;
+}
+.navbar-scrolled { backdrop-filter: blur(10px); }
+
+/* Focus visible for accessibility */
+*:focus-visible { outline: 3px solid var(--accent-color); outline-offset: 2px; }
+
+/* Utility modern spacing */
+.section-wrapper { max-width: 1180px; margin: 0 auto; padding-inline: clamp(1rem, 3vw, 2.5rem); }
+
+/* Gradient accent text */
+.gradient-text { background: linear-gradient(90deg,var(--accent-color), #7f5af0); -webkit-background-clip: text; color: transparent; }
+
+/* Modern cards */
+.skill-card, .project-card { position: relative; overflow: hidden; }
+.skill-card::before, .project-card::before { content: ""; position: absolute; inset: 0; background: linear-gradient(140deg, rgba(var(--bs-primary-rgb),0.12), transparent 70%); opacity: 0; transition: opacity .4s ease; }
+.skill-card:hover::before, .project-card:hover::before { opacity: 1; }
+
+.project-card-img { aspect-ratio: 3/2; }
+
+/* Hero improvements */
+.hero-overlay { background: linear-gradient(180deg, rgba(10,25,47,0.65) 0%, rgba(10,25,47,0.85) 60%, rgba(10,25,47,0.95) 100%); }
+
+/* Tags */
+.project-card-tags .badge { font-weight: 500; }
+
+/* Footer (opcional futuro) */
+footer.site-footer { font-size: .875rem; opacity: .85; background: linear-gradient(180deg, rgba(var(--bs-primary-rgb),0.08), transparent 70%); }
+footer.site-footer a { color: var(--foreground); opacity: .85; }
+footer.site-footer a:hover { opacity: 1; color: var(--accent-color); }
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up, .hero-title .letter, .hero-subtitle, .hero-cta, .skill-card, .project-card {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
 /* NOVO: Estilos para a secção Hero com vídeo */
 .hero-section {
   position: relative;

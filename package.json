@@ -6,7 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "nav:print": "tsx scripts/print-nav.ts",
+    "test": "vitest"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
@@ -21,11 +23,16 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@testing-library/jest-dom": "^6.4.0",
+    "@testing-library/react": "^16.0.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.4.1",
-    "typescript": "^5"
+    "jsdom": "^25.0.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5",
+    "vitest": "^2.1.9"
   }
 }

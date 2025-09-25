@@ -1,62 +1,55 @@
-import type { Metadata } from "next";
-import { Geist } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from 'next';
+import { Geist } from 'next/font/google';
+import './globals.css';
 
-import { Header } from "./components/Header";
-import BootstrapClient from "./components/BootstrapClient";
-import { ThemeProvider } from "./components/ThemeProvider"; // Importa o nosso novo provider
+import { Header } from './components/Header';
+import BootstrapClient from './components/BootstrapClient';
+import { ThemeProvider } from './components/ThemeProvider';
+import { StructuredData } from './components/StructuredData';
+import { Footer } from './components/Footer';
 
-import fs from 'fs';
-import path from 'path';
+import { generateNavLinks } from './lib/nav';
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-export const metadata: Metadata = { title: "Portfólio Dinâmico", description: "Portfólio com Next.js, Bootstrap e Animações" };
-// --- Função RECURSIVA para gerar os links (MODIFICADA) ---
-function generateNavLinks(directory: string, basePath: string = ''): any[] {
-  const excludedDirs = ['components', 'api'];
-  let links = [];
-
-  try {
-    const items = fs.readdirSync(directory, { withFileTypes: true });
-
-    for (const item of items) {
-      if (!item.isDirectory() || excludedDirs.includes(item.name) || item.name.startsWith('(') || item.name.startsWith('_')) {
-        continue;
-      }
-
-      const fullPath = path.join(directory, item.name);
-      const href = `${basePath}/${item.name}`;
-      const label = item.name.charAt(0).toUpperCase() + item.name.slice(1);
-      
-      const hasPage = fs.existsSync(path.join(fullPath, 'page.tsx')) || fs.existsSync(path.join(fullPath, 'page.jsx'));
-      const subLinks = generateNavLinks(fullPath, href);
-
-      // Inclui a pasta no menu se ela for uma página OU se tiver sub-links
-      if (hasPage || subLinks.length > 0) {
-        links.push({ href, label, hasPage, subLinks });
-      }
-    }
-  } catch (error) {
-    // Ignora erros de diretórios que não podem ser lidos
-  }
-  
-  return links;
-}
-
-function getFinalLinks() {
-  const projectRoot = process.cwd();
-  const appDirPath = fs.existsSync(path.join(projectRoot, 'src', 'app')) 
-    ? path.join(projectRoot, 'src', 'app') 
-    : path.join(projectRoot, 'app');
-  
-  const generatedLinks = generateNavLinks(appDirPath);
-  
-  // Adiciona o link "Home" manualmente
-  return [{ href: '/', label: 'Home', hasPage: true, subLinks: [] }, ...generatedLinks];
-}
-
+const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });
+export const metadata: Metadata = {
+  title: {
+    default: 'Persio Godoy | Desenvolvedor Full-Stack',
+    template: '%s | Persio Godoy'
+  },
+  description: 'Portfólio moderno com Next.js, animações e foco em performance e acessibilidade.',
+  keywords: [
+    'Desenvolvedor Full-Stack',
+    'React',
+    'Next.js',
+    'TypeScript',
+    'Portfólio',
+    'Web Performance'
+  ],
+  authors: [{ name: 'Persio Godoy' }],
+  creator: 'Persio Godoy',
+  publisher: 'Persio Godoy',
+  alternates: { canonical: '/' },
+  openGraph: {
+    title: 'Persio Godoy | Desenvolvedor Full-Stack',
+    description: 'Construindo interfaces rápidas, acessíveis e escaláveis.',
+    type: 'website',
+    url: 'https://example.com/',
+    locale: 'pt_BR'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Persio Godoy | Desenvolvedor Full-Stack',
+    description: 'Portfólio moderno com animações e performance.',
+    creator: '@',
+  },
+  robots: {
+    index: true,
+    follow: true
+  },
+  metadataBase: new URL('https://example.com')
+};
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {
-  const navLinks = getFinalLinks();
+  const navLinks = generateNavLinks();
 
   return (
     <html lang="pt-br" suppressHydrationWarning>
@@ -71,11 +64,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           attribute="data-theme"
           defaultTheme="system"
           enableSystem
+          storageKey="site-theme"
+          disableTransitionOnChange
         >
           <Header navLinks={navLinks} />
-          <main className="container-fluid p-0">
-            {children}
-          </main>
+          <StructuredData navLinks={navLinks} />
+          <main className="container-fluid p-0" id="main-content">{children}</main>
+          <Footer />
           <BootstrapClient />
         </ThemeProvider>
       </body>
