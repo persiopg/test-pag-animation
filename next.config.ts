@@ -21,6 +21,23 @@ const nextConfig: NextConfig = {
       //   hostname: 'avatars.githubusercontent.com'
       // }
     ]
+  },
+  async headers() {
+    return [
+      {
+        source: '/videos/background-video.mp4',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+          { key: 'Accept-Ranges', value: 'bytes' }
+        ]
+      },
+      {
+        source: '/videos/background-poster.jpg',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }
+        ]
+      }
+    ];
   }
 };
 

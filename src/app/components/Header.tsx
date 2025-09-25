@@ -83,10 +83,6 @@ export function Header({ navLinks = [] }: HeaderProps) {
                 );
               })}
             </ul>
-            <form className="d-flex" role="search" onSubmit={(e) => e.preventDefault()}>
-              <input className="form-control me-2" type="search" placeholder="Pesquisar (não funcional)" aria-label="Search" />
-              <button className="btn btn-outline-success" type="submit" disabled>Buscar</button>
-            </form>
             <div className="ms-3">
               <ThemeSwitcher />
             </div>

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Geist } from 'next/font/google';
 import './globals.css';
 
@@ -17,6 +17,11 @@ export const metadata: Metadata = {
     template: '%s | Persio Godoy'
   },
   description: 'Portfólio moderno com Next.js, animações e foco em performance e acessibilidade.',
+  // Define cores do navegador (light/dark) para melhor integração PWA e Lighthouse
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
+    { media: '(prefers-color-scheme: dark)', color: '#0A192F' }
+  ],
   keywords: [
     'Desenvolvedor Full-Stack',
     'React',
@@ -48,11 +53,25 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL('https://example.com')
 };
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: 'cover'
+};
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {
   const navLinks = generateNavLinks();
 
   return (
     <html lang="pt-br" suppressHydrationWarning>
+      <head>
+        {/* Preconnect para reduzir latência de fontes e CDN de vídeo/imagens */}
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://opengraph.githubassets.com" />
+        {/* DNS-Prefetch para possíveis chamadas GitHub API */}
+        <link rel="dns-prefetch" href="https://api.github.com" />
+      </head>
       <body className={geistSans.variable}>
         {/*
           Aqui está a magia! O ThemeProvider "embrulha" tudo,
